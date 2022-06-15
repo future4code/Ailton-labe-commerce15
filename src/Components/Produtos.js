@@ -17,10 +17,14 @@ export const ProdutoImg = styled.img`
 height: 100%;
 width: 100%;
 `
+export const BotaoCompra = styled.button`
+margin-bottom: 5px;
+`
 
 const Produtos = (props) => {
   function AdicionaCarrinho() {
     alert("Produto Adicionado ao Carrinho");
+    
   }
   console.log(props.variavel);
   return (
@@ -28,7 +32,7 @@ const Produtos = (props) => {
       <ProdutoImg src={props.imagem} alt={props.textoAlt} />
       <h4>{props.titulo}</h4>
       <h4>{props.preco}</h4>
-      <button onClick={AdicionaCarrinho}>Adicionar ao Carrinho</button>
+      <BotaoCompra onClick={AdicionaCarrinho}>Adicionar ao Carrinho</BotaoCompra>
     </BoxPrincipal>
   );
 };
