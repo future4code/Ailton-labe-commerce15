@@ -43,4 +43,4 @@ class Produto extends React.Component {
   }
 }
 
-export default Post
+export default Produto

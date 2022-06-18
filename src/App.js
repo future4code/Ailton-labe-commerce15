@@ -5,7 +5,7 @@ import Produto from './components/Card/Produto'
 
 // COMPONENTE PRINCIPAL APP
 
-class App extends React.Component {
+export class App extends React.Component {
   
   state = {
     lista: 
@@ -68,20 +68,16 @@ class App extends React.Component {
   }
 
  render() {
-  const componentesListaProdutos = this.state.lista.map((produto) => {
-    return <Produto key={this.state.id}>
-      nomeProduto={produto.name}
-      fotoProduto={produto.value}
-      precoProduto={produto.imageUrl}
-      </Produto>
+  const componentesListaProdutos = this.state.lista.map((produto, index) => {
+    return <div key={index}>O nome do produto é {produto.name} e custa {produto.value}</div>
   })
   
   return <div className={"app-container"}>
-
-    
+    <Produto>
+    {componentesListaProdutos}
+    </Produto>
   </div>
  
 }
 }
 
-export default App;
