@@ -26,8 +26,8 @@ export const ProdPhoto = styled.img`
 
 export const ProdFooter = styled.div`
   height: 40px;
-  
-  
+  display: flex;
+  justify-content: space-between;
 `;
 
 
@@ -44,6 +44,7 @@ class Products extends React.Component {
 
         <ProdFooter>
           <p>Preço: R${this.props.precoProduto},00</p>
+          <button onClick = {this.props.botaoClick}>Adicionar</button>
         </ProdFooter>
       </ProdContainer>
       </>

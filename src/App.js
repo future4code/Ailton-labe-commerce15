@@ -1,6 +1,7 @@
 import React from "react";
 import Products from "./components/Prod";
 import Filtrar from "./components/Filtra";
+import {Carrinho} from "./components/Carrinho";
 import styled from "styled-components";
 
 const AppContainer = styled.div`
@@ -127,6 +128,8 @@ class App extends React.Component {
     maxPrice: "",
     sortingParameter: "title",
     order: 1,
+    carrinho: [],
+	  total: 0
   };
 
   updateQuery = (ev) => {
@@ -158,6 +161,76 @@ class App extends React.Component {
       order: ev.target.value,
     });
   };
+
+  removerItem = (itemRemovendo) => {
+    if (itemRemovendo.qtd === 1) {
+      const novoCarrinho = this.state.carrinho.filter((item) => {
+        if (item.id !== itemRemovendo.id) {
+        return item
+      } else {
+        return false
+      }
+  })
+  
+  this.setState({
+    carrinho: novoCarrinho,
+  })
+  } else {
+  const novoCarrinho = this.state.carrinho.map((item) => {
+      if (itemRemovendo.id === item.id && item.qtd >=1) {
+        return {...item, qtd: item.qtd - 1}
+      } else {
+        return item
+      }
+  })
+  
+  this.setState({
+    carrinho: novoCarrinho,
+  })
+  }
+  this.subtrai(itemRemovendo.value)
+  }
+  
+  onClickAdd = (prod) => {
+    const produtoEscolhido = this.state.carrinho.filter((item) => {
+      if (item.id === prod.item) {
+        return item
+      } else {
+        return false
+      }
+  })
+    if (produtoEscolhido.length === 0) {
+      prod.qtd = 1
+      const novoCarrinho = [prod, ...this.state.carrinho]
+  this.state.setState({
+  carrinho: novoCarrinho,
+  }) } else {
+    const novoCarrinho = this.state.carrinho.map((item) => {
+      if (prod.id === item.id) {
+        return {...item, qtd: item.qtd + 1}
+      } else {
+        return item
+      }
+  })
+  
+  this.setState({
+    carrinho: novoCarrinho,
+  })
+  }
+  this.soma(prod.value)
+  }
+  
+  soma = (value) => {
+    this.setState ({			
+      total: this.state.total + value
+  })
+  }
+  
+  subtrai = (value) => {
+    this.setState ({			
+      total: this.state.total - value
+  })
+  }
 
   render() {
     return (
@@ -216,11 +289,18 @@ class App extends React.Component {
                     nomeProduto={p.name}
                     fotoProduto={p.imageUrl}
                     precoProduto={p.value}
+                    botaoClick={this.onClickAdd}
                   />
                 );
               })}
           </ListContainer>
-          <DivCarrinho>Carrinho</DivCarrinho>
+          <DivCarrinho>
+          <Carrinho
+            itensCart={this.state.carrinho}
+            total={this.state.total}
+            onClick={this.removerItem}
+          />
+          </DivCarrinho>
         </Main>
 
         <Footer>Obrigado</Footer>
