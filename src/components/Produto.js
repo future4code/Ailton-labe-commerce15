@@ -27,13 +27,15 @@ export const ProdPhoto = styled.img`
 `;
 
 export const ProdFooter = styled.div`
-  height: 40px;
+  height: 100px;
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding-top: 20px;
   justify-content: center;
   background-color: lightblue;
+  flex-direction: column;
 `;
+
 
 
 class Post extends React.Component {
@@ -49,6 +51,7 @@ class Post extends React.Component {
 
         <ProdFooter>
           <p>Preço: {this.props.precoProduto}</p>
+          <button onClick={this.Comprar}>Adicionar ao Carrinho</button>
         </ProdFooter>
       </ProdContainer>
       </>
