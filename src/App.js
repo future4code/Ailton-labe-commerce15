@@ -55,15 +55,15 @@ const arrayProdutos = [
     id: 8,
     name: "Obsidiana",
     value: 120.0,
-    imageUrl: "https://picsum.photos/200/150"
+    imageUrl: "https://cf.shopee.com.br/file/5d7f27d7f3c47c161c95470a691bdd8a"
   }
 ];
 
 const AppContainer = styled.div`
   display: grid;
-  justify-content: flex-end;
-  align-items: flex-end;
-
+  grid-template-rows: 60px 1fr 60px;
+  width: 100vw;
+  background-color: lightpink;
 `;
 
 const Header = styled.div`
@@ -73,13 +73,19 @@ const Header = styled.div`
   background-color: red;
 `;
 
+const Main = styled.div`
+  display: grid;
+  grid-template-columns: 60px 1fr 60px;
+  grid-template-rows: repeat(2, 1fr);
+  background-color: lightcoral;
+`
 const DisplayProd = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   justify-content: center;
   align-items: center;
-  background-color: lightsalmon;
+  border: 4px solid yellow;
 `;
 
 const Footer = styled.div`
@@ -108,11 +114,14 @@ class App extends React.Component {
 
     return <AppContainer>
       <Header>LabeGEM</Header>
-    <DisplayProd>{componentesProdutos}</DisplayProd>
+      <Main>
+        <p>HELLO</p>
+        <DisplayProd>{componentesProdutos}</DisplayProd>
+        <p>Carrinho</p>
+      </Main>
     <Footer>Obrigado</Footer>
     </AppContainer>;
   }
 }
 
 export default App;
-
