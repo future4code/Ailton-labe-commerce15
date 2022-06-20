@@ -1,5 +1,8 @@
 import React from "react";
-import Post from "./components/Produto";
+
+import Products from "./components/Prod";
+import Filtrar from "./components/Filtra";
+
 import styled from "styled-components";
 
 const arrayProdutos = [
@@ -73,6 +76,21 @@ const Header = styled.div`
   background-color: red;
 `;
 
+export const ListContainer = styled.div`
+   display: flex;
+   justify-content: space-between;
+   flex-wrap:wrap;
+`
+
+
+const Header = styled.div`
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+`;
+
+
 const Main = styled.div`
   display: grid;
   grid-template-columns: 60px 1fr 60px;
@@ -97,6 +115,47 @@ const Footer = styled.div`
 
 class App extends React.Component {
   state = {
+
+    produtos: arrayProdutos,
+    query: "",
+    minPrice: "",
+    maxPrice: "",
+    sortingParameter: "title",
+    order: 1
+  };
+
+  updateQuery = (ev) => {
+    this.setState({
+       query: ev.target.value
+    })
+ }
+
+ updateMinPrice = (ev) => {
+    this.setState({
+       minPrice: ev.target.value
+    })
+ }
+
+ updateMaxPrice = (ev) => {
+    this.setState({
+       maxPrice: ev.target.value
+    })
+ }
+
+ updateSortingParameter = (ev) => {
+    this.setState({
+       sortingParameter: ev.target.value
+    })
+ }
+
+ updateOrder = (ev) => {
+    this.setState({
+       order: ev.target.value
+    })
+ }
+
+  render() {
+
     produtos: arrayProdutos
   };
 
@@ -112,9 +171,59 @@ class App extends React.Component {
       );
     });
 
+
     return <AppContainer>
       <Header>LabeGEM</Header>
       <Main>
+
+      <Filtrar
+            query={this.state.query}
+            updateQuery={this.updateQuery}
+            updateMinPrice={this.updateMinPrice}
+            updateMaxPrice={this.updateMaxPrice}
+            updateSortingParameter={this.updateSortingParameter}
+            updateOrder={this.updateOrder}
+            minPrice={this.state.minPrice}
+            maxPrice={this.state.maxPrice}
+            sortingParameter={this.state.sortingParameter}
+            order={this.state.order}
+         />
+         <ListContainer>
+            {this.state.produtos
+               .filter(prods => {
+                  return prods.name.toLowerCase().includes(this.state.query.toLowerCase())
+               })
+               .filter(prods => {
+                  return this.state.minPrice === "" || prods.value >= this.state.minPrice
+               })
+               .filter(prods => {
+                  return this.state.maxPrice === "" || prods.value <= this.state.maxPrice
+               })
+               .sort((currentNumber, nextNumber) => {
+                  switch (this.state.sortingParameter) {
+                     case "name":
+                        return this.state.order * currentNumber.name.localeCompare(nextNumber.name)
+                    default:
+                        return this.state.order * (currentNumber.value - nextNumber.value)
+                  }
+               })
+               .map((p) => {
+                  return (
+                    <Products
+                      key={p.id}
+                      nomeProduto={p.name}
+                      fotoProduto={p.imageUrl}
+                      precoProduto={p.value}
+                    />
+                  );
+              })
+            }
+         </ListContainer>
+         <p>Carrinho</p>
+      </Main>
+    <Footer>Obrigado</Footer>
+        </AppContainer>
+
         <p>HELLO</p>
         <DisplayProd>{componentesProdutos}</DisplayProd>
         <p>Carrinho</p>
