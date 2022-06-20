@@ -2,9 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 export const FiltersContainer = styled.div`
-   display: flex;
-   justify-content: space-between;
-   flex-wrap:wrap;
+    width: 10%;
+  border-right-style: solid;
+  border-right-width: thin;
+  background-color: #00152c;
+  color: white;
+  padding: 10px;
+ 
+  
 `
    function Filtrar (props) {
    return <FiltersContainer>
@@ -29,7 +34,7 @@ export const FiltersContainer = styled.div`
       />
 
       <span>
-         <label for="sort">Ordenação: </label>
+         <label for="sort">Ordenação: </label><br></br>
          <select
             name="sort"
             value={props.sortingParameter}
