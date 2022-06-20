@@ -1,6 +1,8 @@
 import React from "react";
+
 import Products from "./components/Prod";
 import Filtrar from "./components/Filtra";
+
 import styled from "styled-components";
 
 const arrayProdutos = [
@@ -80,6 +82,15 @@ export const ListContainer = styled.div`
    flex-wrap:wrap;
 `
 
+
+const Header = styled.div`
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+`;
+
+
 const Main = styled.div`
   display: grid;
   grid-template-columns: 60px 1fr 60px;
@@ -104,6 +115,7 @@ const Footer = styled.div`
 
 class App extends React.Component {
   state = {
+
     produtos: arrayProdutos,
     query: "",
     minPrice: "",
@@ -144,9 +156,26 @@ class App extends React.Component {
 
   render() {
 
+    produtos: arrayProdutos
+  };
+
+  render() {
+    const componentesProdutos = this.state.produtos.map((p) => {
+      return (
+        <Post
+          key={p.id}
+          nomeProduto={p.name}
+          fotoProduto={p.imageUrl}
+          precoProduto={p.value}
+        />
+      );
+    });
+
+
     return <AppContainer>
       <Header>LabeGEM</Header>
       <Main>
+
       <Filtrar
             query={this.state.query}
             updateQuery={this.updateQuery}
@@ -194,6 +223,13 @@ class App extends React.Component {
       </Main>
     <Footer>Obrigado</Footer>
         </AppContainer>
+
+        <p>HELLO</p>
+        <DisplayProd>{componentesProdutos}</DisplayProd>
+        <p>Carrinho</p>
+      </Main>
+    <Footer>Obrigado</Footer>
+    </AppContainer>;
   }
 }
 
